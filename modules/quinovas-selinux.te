@@ -1,4 +1,4 @@
-module quinovas 1.0;
+module quinovas-selinux 1.0;
 
 require {
 	type chronyd_t;

@@ -6,12 +6,15 @@
   "builders": [
     {
       "access_key": "",
+      "ami_groups": [
+        "all"
+      ],
       "ami_name": "amzn-ami-minimal-hvm-selinux-{{isotime \"20060102150405\"}}",
       "ami_regions": [
-        "us-east-1"
-      ],
-      "ami_users": [
-        "357256623497"
+        "us-east-1",
+        "us-east-2",
+        "us-west-1",
+        "us-west-2"
       ],
       "instance_type": "c4.xlarge",
       "region": "us-east-1",
