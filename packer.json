@@ -1,0 +1,51 @@
+{
+  "variables": {
+    "local_ip": "",
+    "source_ami": "ami-c46c4fbe"
+  },
+  "builders": [
+    {
+      "access_key": "",
+      "ami_name": "amzn-ami-minimal-hvm-selinux-{{isotime \"20060102150405\"}}",
+      "ami_regions": [
+        "us-east-1"
+      ],
+      "ami_users": [
+        "357256623497"
+      ],
+      "instance_type": "c4.xlarge",
+      "region": "us-east-1",
+      "secret_key": "",
+      "source_ami": "{{user `source_ami`}}",
+      "ssh_file_transfer_method": "sftp",
+      "ssh_pty": true,
+      "ssh_username": "ec2-user",
+      "tags": {
+        "SourceAMI": "{{user `source_ami`}}"
+      },
+      "temporary_security_group_source_cidr": "{{user `local_ip`}}/32",
+      "type": "amazon-ebs"
+    }
+  ],
+  "provisioners": [
+    {
+      "type": "file",
+      "source": "./modules",
+      "destination": "/tmp"
+    },
+    {
+      "scripts": [
+        "scripts/yum.sh",
+        "scripts/sendmail.sh",
+        "scripts/ntp.sh",
+        "scripts/dos2unix.sh",
+        "scripts/wget.sh",
+        "scripts/root.sh",
+        "scripts/selinux.sh",
+        "scripts/cleanup.sh"
+      ],
+      "type": "shell"
+    }
+
+  ]
+}
