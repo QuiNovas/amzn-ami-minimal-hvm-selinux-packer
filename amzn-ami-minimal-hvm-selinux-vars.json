@@ -1,0 +1,4 @@
+{
+  "ami_name": "amzn-ami-minimal-hvm-selinux",
+  "source_ami": "ami-c46c4fbe"
+}
