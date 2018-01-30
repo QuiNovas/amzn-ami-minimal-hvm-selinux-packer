@@ -1,0 +1,33 @@
+module quinovas-selinux 1.0;
+
+require {
+	type chronyd_t;
+	type urandom_device_t;
+	type syslogd_t;
+	type sysctl_vm_t;
+	type auditctl_t;
+	type user_devpts_t;
+	type shutdown_t;
+	class process getcap;
+	class chr_file { read getattr open ioctl };
+	class dir search;
+	class file { read open };
+}
+
+#============= auditctl_t ==============
+allow auditctl_t self:process getcap;
+
+#============= chronyd_t ==============
+#!!!! This avc can be allowed using one of the these booleans:
+#     authlogin_nsswitch_use_ldap, global_ssp
+
+allow chronyd_t urandom_device_t:chr_file { read getattr open ioctl };
+
+#============= shutdown_t ==============
+#!!!! This avc can be allowed using the boolean 'allow_daemons_use_tty'
+
+allow shutdown_t user_devpts_t:chr_file open;
+
+#============= syslogd_t ==============
+allow syslogd_t sysctl_vm_t:dir search;
+allow syslogd_t sysctl_vm_t:file { read open };
